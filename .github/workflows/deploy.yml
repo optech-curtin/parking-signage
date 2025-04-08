@@ -32,7 +32,8 @@ jobs:
           FIREBASE_MEASUREMENT_ID: ${{ secrets.FIREBASE_MEASUREMENT_ID }}
 
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          github_token: ${{ secrets.ACCESS_TOKEN }}
-          publish_dir: ./src
+          folder: src
+          branch: gh-pages
+          token: ${{ secrets.ACCESS_TOKEN }}
