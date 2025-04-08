@@ -1,19 +1,36 @@
 const fs = require('fs');
 const path = require('path');
 
-// Read the .env file
-const envFile = fs.readFileSync('.env', 'utf8');
+// Get environment variables from process.env or .env file
 const envVars = {};
 
-// Parse the .env file
-envFile.split('\n').forEach(line => {
-    if (line && !line.startsWith('#')) {
-        const [key, value] = line.split('=');
-        if (key && value) {
-            envVars[key.trim()] = value.trim();
-        }
+// Check if we're running in GitHub Actions
+if (process.env.FIREBASE_API_KEY) {
+    // Use environment variables from GitHub Actions
+    envVars.FIREBASE_API_KEY = process.env.FIREBASE_API_KEY;
+    envVars.FIREBASE_AUTH_DOMAIN = process.env.FIREBASE_AUTH_DOMAIN;
+    envVars.FIREBASE_PROJECT_ID = process.env.FIREBASE_PROJECT_ID;
+    envVars.FIREBASE_STORAGE_BUCKET = process.env.FIREBASE_STORAGE_BUCKET;
+    envVars.FIREBASE_MESSAGING_SENDER_ID = process.env.FIREBASE_MESSAGING_SENDER_ID;
+    envVars.FIREBASE_APP_ID = process.env.FIREBASE_APP_ID;
+    envVars.FIREBASE_MEASUREMENT_ID = process.env.FIREBASE_MEASUREMENT_ID;
+} else {
+    // Read from .env file for local development
+    try {
+        const envFile = fs.readFileSync('.env', 'utf8');
+        envFile.split('\n').forEach(line => {
+            if (line && !line.startsWith('#')) {
+                const [key, value] = line.split('=');
+                if (key && value) {
+                    envVars[key.trim()] = value.trim();
+                }
+            }
+        });
+    } catch (error) {
+        console.error('Error reading .env file:', error);
+        process.exit(1);
     }
-});
+}
 
 // Read the firebase-config.js file
 const configPath = path.join(__dirname, 'src', 'js', 'firebase-config.js');
