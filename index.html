@@ -37,12 +37,33 @@
                 const password = document.getElementById('password').value;
                 
                 try {
+                    console.log('Starting login process...');
                     const authService = new AuthService();
                     await authService.login(username, password);
+                    console.log('Login successful, redirecting...');
                     window.location.href = '/public/manager/manager.html';
                 } catch (error) {
                     console.error('Login failed:', error);
-                    alert('Login failed. Please check your credentials.');
+                    let errorMessage = 'Login failed. ';
+                    
+                    switch (error.code) {
+                        case 'auth/user-not-found':
+                            errorMessage += 'No user found with this email.';
+                            break;
+                        case 'auth/wrong-password':
+                            errorMessage += 'Incorrect password.';
+                            break;
+                        case 'auth/invalid-email':
+                            errorMessage += 'Invalid email format.';
+                            break;
+                        case 'auth/user-disabled':
+                            errorMessage += 'This account has been disabled.';
+                            break;
+                        default:
+                            errorMessage += 'Please check your credentials.';
+                    }
+                    
+                    alert(errorMessage);
                 }
             });
         </script>

@@ -2,8 +2,8 @@ import { auth, db } from './firebase-config.js';
 
 class AuthService {
     constructor() {
-        this.auth = firebase.auth();
-        this.db = firebase.firestore();
+        this.auth = auth;
+        this.db = db;
         this.user = null;
         
         // Listen for auth state changes
@@ -20,10 +20,16 @@ class AuthService {
     // Login with email and password
     async login(email, password) {
         try {
+            console.log('Attempting login with:', email);
             const userCredential = await this.auth.signInWithEmailAndPassword(email, password);
+            console.log('Login successful:', userCredential.user.email);
             return userCredential.user;
         } catch (error) {
-            console.error('Login error:', error);
+            console.error('Login error details:', {
+                code: error.code,
+                message: error.message,
+                email: email
+            });
             throw error;
         }
     }
