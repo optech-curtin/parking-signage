@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Parking Signage System",
   "scripts": {
-    "build": "node build.js",
+    "build": "node build.js && cp -r css media src/ && cp index.html src/",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d src"
   },
