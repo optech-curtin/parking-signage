@@ -1,4 +1,3 @@
-
 /*
 File: configManager.js
 Author: Finn Morris
@@ -51,7 +50,7 @@ NOTES:
 function writeLogEvent(data){
     jQuery.ajax({
         type: "POST", //More secure than GET
-        url: '../../server/logEvent.php', //In same directory
+        url: '/server/logEvent.php', //In same directory
         dataType: 'json',
         data: {
             "message": data //String to write to file

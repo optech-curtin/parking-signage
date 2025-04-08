@@ -1,6 +1,9 @@
 <?php
 // We need to use sessions, so you should always start sessions using the below code.
 session_start();
+
+include('/public/manager/db_connection.php');
+
 // If the user is not logged in redirect to the login page...
 if (!isset($_SESSION['loggedin'])) {
 	header('Location: index.html');
@@ -49,14 +52,13 @@ if (!isset($_SESSION['loggedin'])) {
             </div>
             <div class="signLinkContainer">
 
-            <a href="../StaticSignDisplay/sign1.html" target="_blank" rel="noopener noreferrer"><span class="signLink">1</span><span class="signLinkTitle">Uni Boulervard Hayman</span></a>
-            <a href="../StaticSignDisplay/sign2.html" target="_blank" rel="noopener noreferrer"><span class="signLink">2</span><span class="signLinkTitle">Uni Boulervard Kent St</span></a>
-            <a href="../StaticSignDisplay/sign3.html" target="_blank" rel="noopener noreferrer"><span class="signLink">3</span><span class="signLinkTitle">Stadium Entrance</span></a>
-            <a href="../StaticSignDisplay/sign4.html" target="_blank" rel="noopener noreferrer"><span class="signLink">4</span><span class="signLinkTitle">Beazley Kent St</span></a>
-            <a href="../StaticSignDisplay/sign5.html" target="_blank" rel="noopener noreferrer"><span class="signLink">5</span><span class="signLinkTitle">South Entrance</span></a>
-			<a href="../StaticSignDisplay/sign6.html" target="_blank" rel="noopener noreferrer"><span class="signLink">6</span><span class="signLinkTitle">Pole Mount
-			</span></a>
-            <a href="../StaticSignDisplay/signpreview.html" target="_blank" rel="noopener noreferrer"><span class="signLink">All</span></a>
+            <a href="/public/StaticSignDisplay/sign1.html" target="_blank" rel="noopener noreferrer"><span class="signLink">1</span><span class="signLinkTitle">Uni Boulervard Hayman</span></a>
+            <a href="/public/StaticSignDisplay/sign2.html" target="_blank" rel="noopener noreferrer"><span class="signLink">2</span><span class="signLinkTitle">Uni Boulervard Kent St</span></a>
+            <a href="/public/StaticSignDisplay/sign3.html" target="_blank" rel="noopener noreferrer"><span class="signLink">3</span><span class="signLinkTitle">Stadium Entrance</span></a>
+            <a href="/public/StaticSignDisplay/sign4.html" target="_blank" rel="noopener noreferrer"><span class="signLink">4</span><span class="signLinkTitle">Beazley Kent St</span></a>
+            <a href="/public/StaticSignDisplay/sign5.html" target="_blank" rel="noopener noreferrer"><span class="signLink">5</span><span class="signLinkTitle">South Entrance</span></a>
+			<a href="/public/StaticSignDisplay/sign6.html" target="_blank" rel="noopener noreferrer"><span class="signLink">6</span><span class="signLinkTitle">Pole Mount</span></a>
+            <a href="/public/StaticSignDisplay/signpreview.html" target="_blank" rel="noopener noreferrer"><span class="signLink">All</span></a>
 			</div>
 
             <div class="tab">

@@ -16,7 +16,7 @@ async function getFreeBayCounts() {
     $(document).ready(function(){
         $.ajax({
             type: 'GET',
-            url: '/src/server/parking.php',
+            url: '/server/parking.php',
             //dataType: 'JSON',
             success: function(data){
 				console.log(data);

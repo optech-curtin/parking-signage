@@ -7,12 +7,12 @@
 
 session_start();
 // Change this to your connection info.
-include('./db_connection.php');
+include('/public/manager/db_connection.php');
 
 if(isset($_SESSION['loggedin'])) { //Check is set first, avoid undefined index error
     if($_SESSION['loggedin']) {
         // If the user is already logged in, redirect to the home page
-        header('Location: ./manager.php');
+        header('Location: /public/manager/manager.php');
         exit;
     }
 }
@@ -53,7 +53,7 @@ if ($row) {
 		$_SESSION['password'] = $_POST['password'];
 		$_SESSION['role'] = $role;
 		session_write_close();
-		header('Location: manager.php');
+		header('Location: /public/manager/manager.php');
 	} else {
 		// Incorrect password
 		//Write to LOG

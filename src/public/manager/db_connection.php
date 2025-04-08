@@ -1,5 +1,5 @@
 <?php    
-require_once '../../server/env.php';
+require_once '/server/env.php';
 
 $DATABASE_HOST = env('LOGIN_DB_HOST');
 $DATABASE_USER = env('LOGIN_DB_USER');

@@ -1,4 +1,3 @@
-
 var data = {};
 var alarms;
 var numOfAlarms;
@@ -25,7 +24,7 @@ async function getFreeAlarmCounts(updateSourcesAlarm) {
         function getData(){
             $.ajax({
                 type: 'GET',
-                url: '/src/server/gallagher.php',
+                url: '/server/gallagher.php',
                 //dataType: 'JSON',
                 success: function(data){
                     var active = false;

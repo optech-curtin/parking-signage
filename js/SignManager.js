@@ -178,7 +178,7 @@ function checkSystemVariabels(){
 function writeLogEvent(data){
     jQuery.ajax({
         type: "POST",
-        url: '/src/server/logEvent.php',
+        url: '/server/logEvent.php',
         dataType: 'json',
         data: {
             "message": data
