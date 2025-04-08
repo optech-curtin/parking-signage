@@ -36,7 +36,11 @@ class DataService {
     async getConfig() {
         try {
             const doc = await this.db.collection('config').doc('main').get();
-            return doc.exists ? doc.data() : null;
+            if (!doc.exists) {
+                console.log('No configuration found');
+                return null;
+            }
+            return doc.data();
         } catch (error) {
             console.error('Error getting config:', error);
             throw error;
@@ -46,6 +50,7 @@ class DataService {
     async saveConfig(config) {
         try {
             await this.db.collection('config').doc('main').set(config);
+            return true;
         } catch (error) {
             console.error('Error saving config:', error);
             throw error;
@@ -53,22 +58,23 @@ class DataService {
     }
 
     // Image Operations
-    async uploadImage(file, path) {
+    async uploadImage(file) {
         try {
             const storageRef = this.storage.ref();
-            const fileRef = storageRef.child(path);
-            await fileRef.put(file);
-            return await fileRef.getDownloadURL();
+            const imageRef = storageRef.child(`images/${file.name}`);
+            await imageRef.put(file);
+            return await imageRef.getDownloadURL();
         } catch (error) {
             console.error('Error uploading image:', error);
             throw error;
         }
     }
 
-    async deleteImage(path) {
+    async deleteImage(imageUrl) {
         try {
-            const storageRef = this.storage.ref();
-            await storageRef.child(path).delete();
+            const imageRef = this.storage.refFromURL(imageUrl);
+            await imageRef.delete();
+            return true;
         } catch (error) {
             console.error('Error deleting image:', error);
             throw error;
@@ -90,4 +96,4 @@ class DataService {
     }
 }
 
-export const dataService = new DataService(); 
+export default DataService; 
