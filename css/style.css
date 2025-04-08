@@ -1,0 +1,392 @@
+@charset "UTF-8";
+
+/* Body */
+body {
+    font-family: source-sans-pro;
+    background-color: #f2f2f2;
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    font-style: normal;
+    font-weight: 200;
+}
+
+.preloadedImage {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 192px;
+    height: 433px;
+}
+.video{
+    position: absolute;
+    object-fit: fill;
+    top: 0px;
+    left: 0px;
+    width: 192px;
+    height: 433px;  
+}
+
+.preloadedImagePoleSign {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 160px;
+    height: 320px;
+}
+.videoPoleSign{
+    position: absolute;
+    object-fit: fill;
+    top: 0px;
+    left: 0px;
+    width: 160px;
+    height: 320px;  
+}
+
+.preloadedImageEmbededSign {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 1080px;
+    height: 1920px;
+}
+.videoEmbededSign{
+    position: absolute;
+    object-fit: fill;
+    top: 0px;
+    left: 0px;
+    width: 1080px;
+    height: 1920px;  
+}
+
+@-webkit-keyframes glide-sign1 {
+    from {left:92px; top:295px;}
+    to {left:92px; top:240px;}
+}
+
+@-webkit-keyframes glide-sign2 {
+    from {left:83px; top:265px;}
+    to {left:83px; top:230px;}
+}
+
+@-webkit-keyframes glide-sign3 {
+    from {left:117px; top:275px;}
+    to {left:117px; top:245px;}
+}
+@-webkit-keyframes glide-sign4 {
+    from {left:40px; top:276px; -webkit-transform: rotate(-10deg);}
+    to {left:28px; top:245px; -webkit-transform: rotate(-28deg);}
+}
+
+@-webkit-keyframes glide-sign5 {
+    from {left:70px; top:313px; -webkit-transform: rotate(4deg);}
+    to {left:74px; top:250px; -webkit-transform: rotate(4deg);}
+}
+
+@-webkit-keyframes glide-sign6 {
+    from {left:75px; top:200px; -webkit-transform: rotate(4deg);}
+    to {left:74px; top:250px; -webkit-transform: rotate(4deg);}
+}
+*::-webkit-media-controls-panel {
+  display: none!important;
+  -webkit-appearance: none;
+}
+
+/* Old shadow dom for play button */
+
+*::-webkit-media-controls-play-button {
+  display: none!important;
+  -webkit-appearance: none;
+}
+
+/* New shadow dom for play button */
+
+
+*::-webkit-media-controls-start-playback-button {
+  display: none!important;
+  -webkit-appearance: none;
+}
+
+video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+}
+
+.car-sign1{
+    position: absolute;
+    -webkit-animation:glide-sign1 5s ease-in-out alternate infinite; 
+    width: 22px;
+    height: auto;
+}
+
+.car-sign2{
+    position: absolute;
+    -webkit-animation:glide-sign2 4s ease-in-out alternate infinite; 
+    width: 27px;
+    height: auto;
+}
+.car-sign3{
+    position: absolute;
+    -webkit-animation:glide-sign3 4s ease-in-out alternate infinite; 
+    width: 21px;
+    height: auto;
+}
+.car-sign4{
+    position: absolute;
+    -webkit-animation:glide-sign4 4s ease-in-out alternate infinite; 
+    width: 27px;
+    height: auto;
+}
+
+.car-sign5{
+    position: absolute;
+    -webkit-animation:glide-sign5 5s ease-in-out alternate infinite; 
+    width: 22px;
+    height: auto;
+}
+.car-sign6{
+    position: absolute;
+    -webkit-animation:glide-sign6 5s ease-in-out alternate infinite; 
+    width: 18px;
+    height: auto;
+}
+.text {
+    width: auto;
+    position: absolute;
+    text-align: center;
+    color: #000000;
+    font-size: 28px;
+    font-weight: 900;
+    text-shadow: -2px -2px 0 #FFF, 2px -2px 0 #FFF, -2px 2px 0 #FFF, 2px 2px 0 #FFF;
+    display: inline;
+    transform: translateX(-50%);
+}
+
+.PA1.sign1{
+    top: 140px;
+    left: 122px;
+    font-size: 22px;
+	text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
+
+}
+.PA2.sign1{
+    top: 110px;
+    left: 171px;
+    font-size: 20px;
+	text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
+
+}
+.PA3.sign1{
+    top: 145px;
+    left: 172px;
+    font-size: 20px;
+	text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
+
+}
+.PB1.sign1{
+    top: 114px;
+    left: 24px;
+}
+
+.PC4.sign1{
+    top: 261px;
+    left: 138px;
+    font-size: 36px;
+}
+.PD1.sign1{
+    top: 280px;
+    left: 57px;
+    font-size: 36px;
+}
+
+.PA1.sign2{
+    top: 206px;
+    left: 71px;
+    font-size: 24px;
+}
+.PA2.sign2{
+    top: 245px;
+    left: 26px;
+}
+.PA3.sign2{
+    top: 199px;
+    left: 27px;
+    font-size: 20px;
+}
+.PB1.sign2{
+    top: 234px;
+    left: 170px;
+}
+
+.PC4.sign2{
+    top: 105px;
+    left: 83px;
+    font-size: 20px;
+}
+.PD1.sign2{
+    top: 93px;
+    left: 116px;
+}
+.PE1.sign2{
+    top: 137px;
+    left: 177px;
+    font-size: 20px;
+}
+.PF1.sign2{
+    top: 82px;
+    left: 162px;
+    font-size: 20px;
+}
+
+.PA1.sign3{
+    top: 225px;
+    left: 25px;
+    font-size: 20px;
+}
+.PB1.sign3{
+    top: 241px;
+    left: 160px;
+}
+.PC4.sign3{
+    top: 122px;
+    left: 40px;
+    font-size: 20px;
+}
+.PD1.sign3{
+    top: 112px;
+    left: 76px;
+}
+.PE1.sign3{
+    top: 150px;
+    left: 151px;
+}
+.PF1.sign3{
+    top: 101px;
+    left: 124px;
+    font-size: 20px;
+}
+
+.PJ1.sign4{
+    top: 232px;
+    left: 75px;
+}
+.PJ2.sign4{
+    top: 199px;
+    left: 122px;
+    font-size: 20px;
+}
+
+.PI1.sign4{
+    top: 175px;
+    left: 53px;
+    font-size: 32px;
+}
+.PI3.sign4{
+    top: 174px;
+    left: 150px;
+    font-size: 16px;
+}
+.PH1.sign4{
+    top: 122px;
+    left: 152px;
+    font-size: 0px;
+}
+.PH2.sign4{
+    top: 138px;
+    left: 173px;
+    font-size: 16px;
+}
+.PH3.sign4{
+    top: 151px;
+    left: 184px;
+    font-size: 14px;
+}
+.PH4.sign4{
+    top: 141px;
+    left: 134px;
+    font-size: 24px;
+}
+.PG2.sign4{
+    top: 108px;
+    left: 26px;
+    font-size: 17px;
+}
+
+.PH1.sign5{
+    top: 164px;
+    left: 145px;
+    font-size: 0px;
+}
+.PH2.sign5{
+    top: 187px;
+    left: 152px;
+    font-size: 20px;
+}
+.PH3.sign5{
+    top: 189px;
+    left: 94px;
+    font-size: 20px;
+}
+.PH4.sign5{
+    top: 150px;
+    left: 134px;
+    font-size: 30px;
+}
+
+.PI1.sign5{
+    top: 96px;
+    left: 72px;
+}
+.PI3.sign5{
+    top: 151px;
+    left: 55px;
+    font-size: 24px;
+}
+.PJ2.sign5{
+    top: 122px;
+    left: 18px;
+    font-size: 18px;
+}
+.PL1.sign5{
+    top: 250px;
+    left: 45px;
+}
+.PM3.sign5{
+    top: 307px;
+    left: 154px;
+}
+
+.PA1.sign6{
+    top: 158px;
+    left: 58px;
+    font-size: 24px;
+}
+.PA2.sign6{
+    top: 245px;
+    left: 26px;
+}
+.PA3.sign6{
+    top: 147px;
+    left: 14px;
+    font-size: 20px;
+}
+
+.PC4.sign6{
+    top: 69px;
+    left: 80px;
+    font-size: 20px;
+}
+.PD1.sign6{
+    top: 56px;
+    left: 116px;
+}
+.PE1.sign6{
+    top: 137px;
+    left: 177px;
+    font-size: 20px;
+}
+.PF1.sign6{
+    top: 82px;
+    left: 162px;
+    font-size: 20px;
+}

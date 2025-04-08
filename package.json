@@ -1,0 +1,16 @@
+{
+  "name": "parking-signage",
+  "version": "1.0.0",
+  "description": "Parking Signage System",
+  "scripts": {
+    "build": "node build.js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d src"
+  },
+  "dependencies": {
+    "firebase": "^9.0.0"
+  },
+  "devDependencies": {
+    "gh-pages": "^3.2.3"
+  }
+} 
