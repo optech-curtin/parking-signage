@@ -2,8 +2,8 @@ import { auth, db } from './firebase-config.js';
 
 class AuthService {
     constructor() {
-        this.auth = auth;
-        this.db = db;
+        this.auth = firebase.auth();
+        this.db = firebase.firestore();
         this.user = null;
         
         // Listen for auth state changes
