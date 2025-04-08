@@ -4,7 +4,8 @@ const firebaseConfig = {
     authDomain: "parking-signage.firebaseapp.com",
     projectId: "parking-signage",
     storageBucket: "parking-signage.firebasestorage.app",
-    messagingSenderId: "554045710944",
+    messagingSenderId: "554045710944
+",
     appId: "1:554045710944:web:7a11d5ddabdc5de5671905",
     measurementId: "G-5CPREPSTYK"
 };
