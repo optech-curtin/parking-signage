@@ -1,4 +1,5 @@
 import { auth, db } from './firebase-config.js';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js';
 
 class AuthService {
     constructor() {
@@ -7,7 +8,7 @@ class AuthService {
         this.user = null;
         
         // Listen for auth state changes
-        this.auth.onAuthStateChanged(user => {
+        onAuthStateChanged(this.auth, user => {
             this.user = user;
             if (user) {
                 console.log('User logged in:', user.email);
@@ -21,7 +22,7 @@ class AuthService {
     async login(email, password) {
         try {
             console.log('Attempting login with:', email);
-            const userCredential = await this.auth.signInWithEmailAndPassword(email, password);
+            const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
             console.log('Login successful:', userCredential.user.email);
             return userCredential.user;
         } catch (error) {
@@ -37,13 +38,13 @@ class AuthService {
     // Register new user
     async register(email, password, role = 'user') {
         try {
-            const userCredential = await this.auth.createUserWithEmailAndPassword(email, password);
+            const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
             
             // Store additional user data in Firestore
             await this.db.collection('users').doc(userCredential.user.uid).set({
                 email: email,
                 role: role,
-                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                createdAt: new Date()
             });
             
             return userCredential.user;
@@ -56,7 +57,7 @@ class AuthService {
     // Logout
     async logout() {
         try {
-            await this.auth.signOut();
+            await signOut(this.auth);
         } catch (error) {
             console.error('Logout error:', error);
             throw error;

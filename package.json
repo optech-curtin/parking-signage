@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "description": "Parking Signage System",
   "scripts": {
-    "build": "node build.js && cp -r css media src/ && cp index.html src/",
+    "build": "node build.js",
+    "start": "node build.js && http-server src -p 3000",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d src"
   },
   "dependencies": {
-    "firebase": "^9.0.0"
+    "firebase": "^9.0.0",
+    "http-server": "^14.1.1"
   },
   "devDependencies": {
     "gh-pages": "^3.2.3",

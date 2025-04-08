@@ -20,6 +20,7 @@ var CHANGE_IMAGE_INTERVAL; //Holder for current interval (changes with image rot
 
 var valid = false; //Guilty until proven innocent
 var validFile = false;
+
 /*
 METHOD: main
 DESC: Main function, call functions in needed order to set variables and initiate timers
@@ -27,17 +28,30 @@ INPUT: None
 OUTPUT: None
 NOTES: To be run once on startup
 */
-function main(){
-    
-    writeLogEvent("NEW SIGN MANAGER SESSION STARTED");
-    document.getElementById("defaultOpen").click(); //Set Default Tab
-    setSystemVariables(); //Call function setSystemVariables before starting program
+export function main(){
+    // Wait for DOM to be ready
+    $(document).ready(function() {
+        // Initialize Sortable
+        const dragArea = document.querySelector(".wrapper");
+        if (dragArea) {
+            new Sortable(dragArea, {
+                animation: 350,
+                handle: 'i',
+                distance: 5
+            });
+        }
 
-    //Reading from file takes around 200ms, delay is to wait for this
-    setTimeout(() => {
-        console.log("Variables loaded"); //DEBUG
-        changesMade(0); //Initialise the changes made text to be green
-     }, 1000);
+        // Initialize other functionality
+        writeLogEvent("NEW SIGN MANAGER SESSION STARTED");
+        document.getElementById("defaultOpen").click(); //Set Default Tab
+        setSystemVariables(); //Call function setSystemVariables before starting program
+
+        //Reading from file takes around 200ms, delay is to wait for this
+        setTimeout(() => {
+            console.log("Variables loaded"); //DEBUG
+            changesMade(0); //Initialise the changes made text to be green
+        }, 1000);
+    });
 }
 
 /*
@@ -47,23 +61,47 @@ INPUT: data (String)
 OUTPUT: JSON OBj (on success: data, on error: error message)
 NOTES: 
 */
-function writeLogEvent(data){
-    jQuery.ajax({
-        type: "POST", //More secure than GET
-        url: '/server/logEvent.php', //In same directory
-        dataType: 'json',
-        data: {
-            "message": data //String to write to file
-        },
-        success: function (obj, textstatus) {
-                      if( !('error' in obj) ) { //No error
-                          yourVariable = obj.result;
-                      }
-                      else {
-                          console.log(obj.error); //Error, output to console
-                      }
+function writeLogEvent(data) {
+    try {
+        // Check if Firebase is initialized
+        if (!firebase.apps.length) {
+            console.warn('Firebase not initialized, skipping log event');
+            return;
+        }
+
+        // Get the current user's ID token
+        const user = firebase.auth().currentUser;
+        if (!user) {
+            console.warn('No authenticated user found for logging');
+            return;
+        }
+
+        user.getIdToken().then(idToken => {
+            jQuery.ajax({
+                type: "POST",
+                url: '/server/logEvent.php',
+                dataType: 'json',
+                data: {
+                    "message": data,
+                    "idToken": idToken
+                },
+                success: function (obj, textstatus) {
+                    if (!('error' in obj)) {
+                        console.log('Log event written successfully');
+                    } else {
+                        console.warn('Error writing log event:', obj.error);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.warn('Failed to write log event:', error);
                 }
-    });
+            });
+        }).catch(error => {
+            console.warn('Error getting ID token:', error);
+        });
+    } catch (error) {
+        console.warn('Error in writeLogEvent:', error);
+    }
 }
 
 /*
@@ -135,7 +173,7 @@ INPUT: onClick from HTML (evt, tabName)
 OUTPUT: None
 NOTES: Credit: https://www.w3schools.com/howto/howto_js_tabs.asp
 */
-function tabHandler(evt, tabName) {
+export function tabHandler(evt, tabName) {
     // Declare all variables
     var i, tabcontent, tablinks;
   
@@ -169,14 +207,14 @@ OUTPUT: valid (Boolean)
 NOTES: 
 */
 function checkValidData(data){
-    valid = false;
-    imagePath_valid = false;
-    imageIntervals_valid = false;
-    scheduleData_valid = false;
-    checkCurrentTimeInterval_valid = false;
-    activeFireSigns_valid = false;
-    activeFireBuildings_valid = false;
-    checkAlarmStatusInterval_valid = false;
+    let valid = false;
+    let imageData_valid = false;
+    let imageIntervals_valid = false;
+    let scheduleData_valid = false;
+    let checkCurrentTimeInterval_valid = false;
+    let activeFireSigns_valid = false;
+    let activeFireBuildings_valid = false;
+    let checkAlarmStatusInterval_valid = false;
 
     //Check image data exists:
     if(data.image_data != null){
@@ -692,16 +730,16 @@ OUTPUT: The text and color of an element is updated
 NOTES: 
 */
 function changesMade(state){
-    // Get an element by its ID
-    changesText = document.getElementById("changesMade");
-    // If the state is 0
+    const changesText = document.getElementById("changesMade");
+    if (!changesText) {
+        console.warn('Changes text element not found');
+        return;
+    }
+    
     if(state == 0){
-        // Update the inner HTML and style of the element
         changesText.innerHTML = "No changes made."
         changesText.style.color = "green"
-    // If the state is 1
     } else if(state == 1){
-        // Update the inner HTML and style of the element
         changesText.innerHTML = "Changes made. NOT saved"
         changesText.style.color = "red"
     }
@@ -723,27 +761,19 @@ function isNum(v) {
 const targetDiv = document.getElementById("developerOptions");
 const btn = document.getElementById("devBtn");
 
-/*
-METHOD: n/a (anonymous function)
-DESC: This function toggles the display property of an element and updates the inner HTML of a button element when it is clicked.
-INPUT: None
-OUTPUT: The display property of an element is toggled, and the inner HTML of a button element is updated
-NOTES: This function is assigned to the "onclick" event of a button element.
-*/
-btn.onclick = function () {
-    // If the display property of the target element is not "none"
-    if (targetDiv.style.display !== "none") {
-      // Set the display property to "none"
-      targetDiv.style.display = "none";
-      // Update the inner HTML of the button element
-      btn.innerHTML = "Show developer options"
-    } else {
-      // Set the display property to "inline-block"
-      targetDiv.style.display = "inline-block";
-      // Update the inner HTML of the button element
-      btn.innerHTML = "Hide developer options"
-    }
-  };
+if (btn) {
+    btn.onclick = function () {
+        if (targetDiv) {
+            if (targetDiv.style.display !== "none") {
+                targetDiv.style.display = "none";
+                btn.innerHTML = "Show developer options";
+            } else {
+                targetDiv.style.display = "inline-block";
+                btn.innerHTML = "Hide developer options";
+            }
+        }
+    };
+}
 
 
 /*

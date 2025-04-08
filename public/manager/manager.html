@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manager Dashboard</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <!-- Load jQuery first -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Load jQuery UI -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <!-- Load jQuery Timepicker -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+    <!-- Load Sortable.js -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <!-- Load Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+    <!-- Initialize Firebase -->
+    <script>
+        const firebaseConfig = {
+            apiKey: 'AIzaSyBY_n9z2ontYAQ6Vdg7woi0P6F3cEnF_6s',
+            authDomain: 'parking-signage.firebaseapp.com',
+            projectId: 'parking-signage',
+            storageBucket: 'parking-signage.firebasestorage.app',
+            messagingSenderId: '554045710944',
+            appId: '1:554045710944:web:7a11d5ddabdc5de5671905',
+            measurementId: 'G-5CPREPSTYK'
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+    <script type="module" src="../../js/auth-service.js"></script>
+    <script type="module" src="../../js/configManager.js"></script>
+    <style>
+        /* Tab styles */
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+        }
+        .tab button:hover {
+            background-color: #ddd;
+        }
+        .tab button.active {
+            background-color: #ccc;
+        }
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.9);
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <h1>Manager Dashboard</h1>
+        
+        <!-- Changes status -->
+        <div id="changesMade" style="margin: 10px 0; padding: 5px;"></div>
+        
+        <!-- Tab buttons -->
+        <div class="tab">
+            <button class="tablinks" id="defaultOpen" onclick="tabHandler(event, 'CurrentImagesTab')">Current Images</button>
+            <button class="tablinks" onclick="tabHandler(event, 'ScheduleTab')">Schedule</button>
+            <button class="tablinks" onclick="tabHandler(event, 'FireAlarmTab')">Fire Alarm</button>
+        </div>
+
+        <!-- Tab content -->
+        <div id="CurrentImagesTab" class="tabcontent">
+            <div id="configSection">
+                <div class="wrapper">
+                    <div id="imagesWrapper">
+                        <!-- Images will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="ScheduleTab" class="tabcontent">
+            <h3>Schedule Settings</h3>
+            <!-- Schedule content will be loaded here -->
+        </div>
+
+        <div id="FireAlarmTab" class="tabcontent">
+            <h3>Fire Alarm Settings</h3>
+            <!-- Fire alarm content will be loaded here -->
+        </div>
+
+        <button id="logoutBtn">Logout</button>
+    </div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <span id="close" class="close">&times;</span>
+        <img class="modal-content" id="img01">
+    </div>
+
+    <script type="module">
+        import { authService } from '../../js/auth-service.js';
+        import { main, tabHandler } from '../../js/configManager.js';
+        
+        // Make tabHandler available globally
+        window.tabHandler = tabHandler;
+        
+        // Check authentication status
+        authService.auth.onAuthStateChanged((user) => {
+            if (!user) {
+                window.location.href = '/index.html';
+            } else {
+                // User is authenticated, load the manager content
+                main();
+            }
+        });
+
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            try {
+                await authService.logout();
+                window.location.href = '/index.html';
+            } catch (error) {
+                console.error('Logout failed:', error);
+            }
+        });
+    </script>
+</body>
+</html> 

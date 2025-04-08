@@ -3,19 +3,15 @@ import { db } from './firebase-config.js';
 const initialConfig = {
     image_data: [
         {
-            image_path: "images/PARKAMWhite On Campus vert_TEXT.jpg",
-            interval: "6000"
-        },
-        {
-            image_path: "images/5405UM_PG Expo Campaign Digital_On campus digital screens  24.jpg",
+            image_path: "media/images/rolling_image/1.png",
             interval: "10000"
         },
         {
-            image_path: "images/smart-sign-virus-distancing-3.jpg",
+            image_path: "media/images/rolling_image/2.png",
             interval: "10000"
         },
         {
-            image_path: "images/Fire Signage-1.png",
+            image_path: "media/images/rolling_image/3.png",
             interval: "10000"
         }
     ],

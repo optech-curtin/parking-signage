@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+require('dotenv').config();
 
 // Get environment variables from process.env or .env file
 const envVars = {};
@@ -32,8 +33,8 @@ if (process.env.FIREBASE_API_KEY) {
     }
 }
 
-// Read the firebase-config.js file
-const configPath = path.join(__dirname, 'src', 'js', 'firebase-config.js');
+// Read and update the firebase-config.js file
+const configPath = path.join(__dirname, 'js', 'firebase-config.js');
 let configContent = fs.readFileSync(configPath, 'utf8');
 
 // Replace process.env variables with actual values
@@ -50,4 +51,32 @@ Object.keys(envVars).forEach(key => {
 // Write the updated file
 fs.writeFileSync(configPath, configContent);
 
-console.log('Firebase configuration updated successfully!'); 
+console.log('Firebase configuration updated successfully!');
+
+// Function to replace environment variables in HTML files
+function replaceEnvVars(filePath) {
+    let content = fs.readFileSync(filePath, 'utf8');
+    
+    // Replace environment variables
+    content = content.replace(/\${process\.env\.([^}]+)}/g, (match, envVar) => {
+        return process.env[envVar] || '';
+    });
+    
+    fs.writeFileSync(filePath, content);
+}
+
+// List of HTML files to process
+const htmlFiles = [
+    'index.html',
+    'public/manager/manager.html'
+];
+
+// Process each HTML file
+htmlFiles.forEach(file => {
+    const filePath = path.join(__dirname, file);
+    if (fs.existsSync(filePath)) {
+        replaceEnvVars(filePath);
+    }
+});
+
+console.log('Environment variables replaced in HTML files'); 
